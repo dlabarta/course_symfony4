@@ -78,7 +78,7 @@ class TagController extends AbstractController
             $tagManager->delete($tag);
         } else {
             $this->addFlash(
-                'error',
+                'notice',
                 'No se puede borrar el tag al tener incidencias asociadas.'
             );
         }

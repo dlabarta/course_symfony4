@@ -79,7 +79,7 @@ class CategoryController extends AbstractController
             $categoryManager->delete($category);
         } else {
             $this->addFlash(
-                'error',
+                'notice',
                 'No se puede borrar la categoría al tener incidencias asociadas.'
             );
         }
