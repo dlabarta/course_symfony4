@@ -28,6 +28,10 @@
                 <td>{{ issue.description }}</td>
             </tr>
             <tr>
+                <th>{% trans %}Tags{% endtrans %}</th>
+                <td>{{ issue.tags |join(', ')   }}</td>
+            </tr>
+            <tr>
                 <th>{% trans %}Created at{% endtrans %}</th>
                 <td>{{ issue.createdAt ? issue.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
@@ -58,11 +62,11 @@
         </tbody>
     </table>
 
-    <a href="{{ path('issue_index') }}">{% trans %}Back to list{% endtrans %}</a> |
+    <a href="{{ path('issue_index') }}" class="btn btn-light">{% trans %}Back to list{% endtrans %}</a>
 
-    <a href="{{ path('issue_edit', {'id': issue.id}) }}">edit</a> |
+    <a href="{{ path('issue_edit', {'id': issue.id}) }}" class="btn btn-primary">{% trans %}Edit{% endtrans %}</a>
 
-    <a href="{{ url('issue_delete', {'id': issue.id }) }}" onclick="return confirm('¿Estás seguro que deseas borrarlo?')">
-        <i class="fa fa-close"></i> Delete
+    <a href="{{ url('issue_delete', {'id': issue.id }) }}" onclick="return confirm('¿Estás seguro que deseas borrarlo?')" class="btn btn-danger">
+        <i class="fa fa-close"></i> {% trans %}Delete{% endtrans %}
     </a>
 {% endblock %}

@@ -111,7 +111,7 @@
       </trans-unit>
       <trans-unit id="lpzL089" resname="Email">
         <source>Email</source>
-        <target>_Email</target>
+        <target>Email</target>
       </trans-unit>
       <trans-unit id="wlM3BVR" resname="Roles">
         <source>Roles</source>
@@ -176,6 +176,14 @@
       <trans-unit id="v9QCsvb" resname="Sign in">
         <source>Sign in</source>
         <target>Acceso</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Editar</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Borrar</target>
       </trans-unit>
     </body>
   </file>
