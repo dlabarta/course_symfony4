@@ -7,6 +7,7 @@ use App\Form\IssueSearchType;
 use App\Form\IssueType;
 use App\Managers\IssueManager;
 use App\Repository\IssueRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,7 @@ class IssueController extends AbstractController
     /**
      * @Route("/", name="issue_index", methods={"GET", "POST"})
      */
-    public function index(Request $request, IssueRepository $issueRepository): Response
+    public function index(Request $request, IssueRepository $issueRepository, PaginatorInterface $paginator): Response
     {
         $user = $this->getUser();
 
@@ -43,9 +44,15 @@ class IssueController extends AbstractController
             }
         }
 
+        $paginator = $paginator->paginate(
+            $issues,
+            $request->query->getInt('page', 1),
+            5
+        );
+
         return $this->render('issue/index.html.twig', [
             'formSearch' => $formSearch->createView(),
-            'issues' => $issues,
+            'issues' => $paginator,
         ]);
     }
 
