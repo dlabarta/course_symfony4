@@ -41,7 +41,7 @@
                         </span>
                     {% endif %}
                 </td>
-                <td>{{ (issue.createdAt is not null ? issue.createdAt|date('Y-m-d H:i:s') : '') }}</td>
+                <td>{{ (issue.createdAt is not null ? issue.createdAt|date('d/m/Y H:i') : '') }}</td>
                 <td>
                     <a href="{{ path('issue_show', {'id': issue.id}) }}" class="btn btn-secondary btn-sm">
                         {% trans %}show{% endtrans %}

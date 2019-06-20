@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <th>{% trans %}Created at{% endtrans %}</th>
-                <td>{{ issue.createdAt ? issue.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ issue.createdAt ? issue.createdAt|date('d/m/Y H:i') : '' }}</td>
             </tr>
             <tr>
                 <th>{% trans %}Solved{% endtrans %}</th>
@@ -51,7 +51,7 @@
             </tr>
             <tr>
                 <th>{% trans %}Solved at{% endtrans %}</th>
-                <td>{{ issue.solved ? (issue.solvedAt ? issue.solvedAt|date('Y-m-d H:i:s') : '') : '' }}</td>
+                <td>{{ issue.solved ? (issue.solvedAt ? issue.solvedAt|date('d/m/Y H:i') : '') : '' }}</td>
             </tr>
             <tr>
                 <th>{% trans %}Attachment{% endtrans %}</th>
