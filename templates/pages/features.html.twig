@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block title %}{% trans %}Issues{% endtrans %}{% endblock %}
+{% block title %}{% trans %}Features{% endtrans %}{% endblock %}
 
 {% block body %}
 
     <p>&nbsp;</p>
-    <h1>Notas</h1>
+    <h2>Notas</h2>
     <ul>
         <li>
             Hay creada un DataFixture para crear los usuarios. Se crean:
@@ -20,5 +20,24 @@
         <li>En el Subscriber Issue hay un ejemplo de envío de mail, pero esta comentado.</li>
         <li>La forma en la que está hecho el borrar en todas las entidades no debería usarse nunca en producción, ya que esta por get y sin seguridad.</li>
         <li>Hay creado un comando (app:close-issues) que marca todas las incidencias como resultas.</li>
+    </ul>
+
+    <h2>Temario curso</h2>
+    <ul>
+        <li><a href="{{ asset('pdf/1-symfony.pdf') }}" target="_blank">Tema 1 - Introducción</a></li>
+        <li><a href="{{ asset('pdf/2-symfony.pdf') }}" target="_blank">Tema 2 - El controller y el routing: Creando la primera página</a></li>
+        <li><a href="{{ asset('pdf/3-symfony.pdf') }}" target="_blank">Tema 3 - Creando y usando templates</a></li>
+        <li><a href="{{ asset('pdf/4-symfony.pdf') }}" target="_blank">Tema 4 - La primera entidad</a></li>
+        <li><a href="{{ asset('pdf/5-symfony.pdf') }}" target="_blank">Tema 5 - Formularios</a></li>
+        <li><a href="{{ asset('pdf/6-symfony.pdf') }}" target="_blank">Tema 6 - Validaciones</a></li>
+        <li><a href="{{ asset('pdf/7-symfony.pdf') }}" target="_blank">Tema 7 - Relaciones entre entidades</a></li>
+        <li><a href="{{ asset('pdf/8-symfony.pdf') }}" target="_blank">Tema 8 - Servicios</a></li>
+        <li><a href="{{ asset('pdf/9-symfony.pdf') }}" target="_blank">Tema 9 - Doctrine</a></li>
+        <li><a href="{{ asset('pdf/10-symfony.pdf') }}" target="_blank">Tema 10 - Extendiendo twig</a></li>
+        <li><a href="{{ asset('pdf/11-symfony.pdf') }}" target="_blank">Tema 11 - Eventos</a></li>
+        <li><a href="{{ asset('pdf/12-symfony.pdf') }}" target="_blank">Tema 12 - Commands</a></li>
+        <li><a href="{{ asset('pdf/13-symfony.pdf') }}" target="_blank">Tema 13 - Security</a></li>
+        <li><a href="{{ asset('pdf/14-symfony.pdf') }}" target="_blank">Tema 14 - Traducciones</a></li>
+        <li><a href="{{ asset('pdf/15-symfony.pdf') }}" target="_blank">Tema 15 - Otros temas importantes</a></li>
     </ul>
 {% endblock %}
