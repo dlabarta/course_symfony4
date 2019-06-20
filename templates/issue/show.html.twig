@@ -3,7 +3,14 @@
 {% block title %}Issue{% endblock %}
 
 {% block body %}
-    <h1>Issue</h1>
+    <h1>
+        {% if issue_has_priority(issue) %}
+            <span style="color: Red;" title="Más de 5 días sin ser resuelta.">
+                <i class="fas fa-exclamation-triangle"></i>
+            </span>
+        {% endif %}
+        {% trans %}Issue{% endtrans %}
+    </h1>
 
     <table class="table">
         <tbody>
