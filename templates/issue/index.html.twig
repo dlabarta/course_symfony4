@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% form_theme formSearch 'bootstrap_4_horizontal_layout.html.twig' %}
+
+{% block title %}{% trans %}Issues{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}Issues{% endtrans %}</h1>
+
+    {{ form(formSearch) }}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans %}Title{% endtrans %}</th>
+                <th>{% trans %}Client email{% endtrans %}</th>
+                <th>{% trans %}Description{% endtrans %}</th>
+                <th>{% trans %}Created at{% endtrans %}</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for issue in issues %}
+            <tr>
+                <td>{{ issue.title }}</td>
+                <td>{{ issue.email }}</td>
+                <td>{{ issue.description }}</td>
+                <td>{{ issue.createdAt is not null ? issue.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('issue_show', {'id': issue.id}) }}" class="btn btn-secondary btn-sm">
+                        {% trans %}show{% endtrans %}
+                    </a>
+                    <a href="{{ path('issue_edit', {'id': issue.id}) }}" class="btn btn-secondary btn-sm">
+                        {% trans %}edit{% endtrans %}
+                    </a>
+                    <a href="{{ path('issue_delete', {'id': issue.id}) }}"class="btn btn-danger btn-sm">
+                        {% trans %}delete{% endtrans %}
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">{% trans %}No issues found{% endtrans %}.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('issue_new') }}"class=" btn btn-primary">{% trans %}Create new{% endtrans %}</a>
+{% endblock %}

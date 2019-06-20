@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="es" target-language="es" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="ZmBn3Td" resname="Issues">
+        <source>Issues</source>
+        <target>Incidencias</target>
+      </trans-unit>
+      <trans-unit id="uLHYlMa" resname="Categories">
+        <source>Categories</source>
+        <target>Categorías</target>
+      </trans-unit>
+      <trans-unit id="EzEnW8U" resname="Tags">
+        <source>Tags</source>
+        <target>Tags</target>
+      </trans-unit>
+      <trans-unit id="awzJBNC" resname="Users">
+        <source>Users</source>
+        <target>Usuarios</target>
+      </trans-unit>
+      <trans-unit id="YJEX1bD" resname="New tag">
+        <source>New tag</source>
+        <target>Nuevo tag</target>
+      </trans-unit>
+      <trans-unit id="3H1gOqR" resname="Create new tag">
+        <source>Create new tag</source>
+        <target>Crear tag</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target>Guardar</target>
+      </trans-unit>
+      <trans-unit id="Xaj3_8K" resname="Back to list">
+        <source>Back to list</source>
+        <target>Volver al listado</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Descripción</target>
+      </trans-unit>
+      <trans-unit id="im3VA_6" resname="No tags found">
+        <source>No tags found</source>
+        <target>No se han encontrado tags</target>
+      </trans-unit>
+      <trans-unit id="nz33U6Q" resname="Create new">
+        <source>Create new</source>
+        <target>Crear nuevo</target>
+      </trans-unit>
+      <trans-unit id="NITRDwG" resname="New issue">
+        <source>New issue</source>
+        <target>Nueva incidencia</target>
+      </trans-unit>
+      <trans-unit id="8npFHBb" resname="Create new issue">
+        <source>Create new issue</source>
+        <target>Crear nueva incidencia</target>
+      </trans-unit>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target>Título</target>
+      </trans-unit>
+      <trans-unit id="d1tb_WR" resname="Created at">
+        <source>Created at</source>
+        <target>Creado en</target>
+      </trans-unit>
+      <trans-unit id="_ynPgPY" resname="No issues found">
+        <source>No issues found</source>
+        <target>No se han encontrado incidencias</target>
+      </trans-unit>
+      <trans-unit id="Y1NuaXc" resname="Not attachment found.">
+        <source>Not attachment found.</source>
+        <target>No se han encontrado adjuntos.</target>
+      </trans-unit>
+      <trans-unit id="GrHhIcD" resname="New category">
+        <source>New category</source>
+        <target>Nueva categoría</target>
+      </trans-unit>
+      <trans-unit id="BERQBOo" resname="Create new category">
+        <source>Create new category</source>
+        <target>Crear nueva categoría</target>
+      </trans-unit>
+      <trans-unit id="iyKryq4" resname="No categories found">
+        <source>No categories found</source>
+        <target>No se han encontrado categorías</target>
+      </trans-unit>
+      <trans-unit id="JiEhxTc" resname="edit">
+        <source>edit</source>
+        <target>editar</target>
+      </trans-unit>
+      <trans-unit id="YZdZVQP" resname="delete">
+        <source>delete</source>
+        <target>borrar</target>
+      </trans-unit>
+      <trans-unit id="HGMzUJ3" resname="show">
+        <source>show</source>
+        <target>ver</target>
+      </trans-unit>
+      <trans-unit id="Y4T.p3E" resname="New user">
+        <source>New user</source>
+        <target>Nuevo usuario</target>
+      </trans-unit>
+      <trans-unit id="g36VwXo" resname="Create new User">
+        <source>Create new User</source>
+        <target>Crear nuevo usuario</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>_Email</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+        <source>Roles</source>
+        <target>Roles</target>
+      </trans-unit>
+      <trans-unit id="vx4QT7P" resname="No users found">
+        <source>No users found</source>
+        <target>No se han encontrado usuarios</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Cerrar sesión</target>
+      </trans-unit>
+      <trans-unit id="NA9GMDP" resname="Code">
+        <source>Code</source>
+        <target>Código</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target>Categoría</target>
+      </trans-unit>
+      <trans-unit id="64WMRYt" resname="Solved">
+        <source>Solved</source>
+        <target>Resuelta</target>
+      </trans-unit>
+      <trans-unit id="Caab2zg" resname="Solved at">
+        <source>Solved at</source>
+        <target>Resuelta en</target>
+      </trans-unit>
+      <trans-unit id="BA0rNon" resname="Attachment">
+        <source>Attachment</source>
+        <target>Adjunto</target>
+      </trans-unit>
+      <trans-unit id="2BobDJG" resname="View attachment (PDF)">
+        <source>View attachment (PDF)</source>
+        <target>Ver adjunto (PDF)</target>
+      </trans-unit>
+      <trans-unit id="BPiZbad" resname="user">
+        <source>user</source>
+        <target>usuario</target>
+      </trans-unit>
+      <trans-unit id="LqTWqF3" resname="Práctica">
+        <source>Práctica</source>
+        <target>_Práctica</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Acceso</target>
+      </trans-unit>
+      <trans-unit id="yU8Kb7Z" resname="Client email">
+        <source>Client email</source>
+        <target>Email cliente</target>
+      </trans-unit>
+      <trans-unit id="dDUw20Q" resname="Please sign in">
+        <source>Please sign in</source>
+        <target>Indique sus datos de acceso.</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Contraseña</target>
+      </trans-unit>
+      <trans-unit id="v9QCsvb" resname="Sign in">
+        <source>Sign in</source>
+        <target>Acceso</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

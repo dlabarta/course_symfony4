@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Categories{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}Categories{% endtrans %}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans %}Name{% endtrans %}</th>
+                <th>{% trans %}Description{% endtrans %}</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td>{{ category.description }}</td>
+                <td>
+                    <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-secondary btn-sm">
+                        {% trans %}edit{% endtrans %}
+                    </a>
+                    <a href="{{ path('category_delete', {'id': category.id}) }}" class="btn btn-danger btn-sm">
+                        {% trans %}delete{% endtrans %}
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">{% trans %}No categories found{% endtrans %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('category_new') }}" class="btn btn-primary">{% trans %}Create new{% endtrans %}</a>
+{% endblock %}

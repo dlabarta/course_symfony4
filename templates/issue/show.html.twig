@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Issue{% endblock %}
+
+{% block body %}
+    <h1>Issue</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>{% trans %}Code{% endtrans %}</th>
+                <td>{{ issue.code }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Category{% endtrans %}</th>
+                <td>{{ (issue.category ? issue.category : '-') }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Client email{% endtrans %}</th>
+                <td>{{ issue.email }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Title{% endtrans %}</th>
+                <td>{{ issue.title }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Description{% endtrans %}</th>
+                <td>{{ issue.description }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Created at{% endtrans %}</th>
+                <td>{{ issue.createdAt ? issue.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Solved{% endtrans %}</th>
+                <td>{{ issue.solved ? 'Sí' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Solved at{% endtrans %}</th>
+                <td>{{ issue.solved ? (issue.solvedAt ? issue.solvedAt|date('Y-m-d H:i:s') : '') : '' }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Attachment{% endtrans %}</th>
+                <td>
+                    {% if issue.attachmentName is not empty %}
+                        <a href="{{ asset('uploads/attachments/' ~ issue.attachmentName) }}" target="_blank">
+                            {% trans %}View attachment (PDF){% endtrans %}
+                        </a>
+                    {% else %}
+                        {% trans %}Not attachment found.{% endtrans %}
+                    {% endif %}
+                </th>
+            </tr>
+            <tr>
+                <th>{% trans %}user{% endtrans %}</th>
+                <td>{{ (issue.user ? issue.user : '-') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('issue_index') }}">{% trans %}Back to list{% endtrans %}</a> |
+
+    <a href="{{ path('issue_edit', {'id': issue.id}) }}">edit</a> |
+
+    <a href="{{ url('issue_delete', {'id': issue.id }) }}" onclick="return confirm('¿Estás seguro que deseas borrarlo?')">
+        <i class="fa fa-close"></i> Delete
+    </a>
+{% endblock %}

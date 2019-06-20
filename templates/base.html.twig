@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Práctica Avaibook!{% endblock %}</title>
+
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+
+        <div class="header">
+            <img src="{{ asset('img/logo-avaibook.png') }}">
+        </div>
+        {{ include('menu.html.twig') }}
+
+        <div class="container">
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% block body %}{% endblock %}
+        </div>
+
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

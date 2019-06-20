@@ -1,0 +1,32 @@
+
+
+{% if is_granted('ROLE_USER') %}
+{% set route = app.request.get('_route') %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item {% if route starts with 'issue_' %}active{% endif %}">
+                    <a class="nav-link" href="{{ url('issue_index') }}">{% trans %}Issues{% endtrans %}</a>
+                </li>
+                <li class="nav-item {% if route starts with 'category_' %}active{% endif %}">
+                    <a class="nav-link" href="{{ url('category_index') }}">{% trans %}Categories{% endtrans %}</a>
+                </li>
+                <li class="nav-item {% if route starts with 'tag_' %}active{% endif %}">
+                    <a class="nav-link" href="{{ url('tag_index') }}">{% trans %}Tags{% endtrans %}</a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item {% if route starts with 'user_' %}active{% endif %}">
+                        <a class="nav-link" href="{{ url('user_index') }}">{% trans %}Users{% endtrans %}</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+        </div>
+        <span class="navbar-text">
+            <a href="{{ url('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
+        </span>
+    </nav>
+{% endif %}
