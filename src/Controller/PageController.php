@@ -22,4 +22,12 @@ class PageController extends AbstractController
 
         return $this->redirectToRoute('app_login');
     }
+
+    /**
+     * @Route("/features", name="app_features", methods={"GET"})
+     */
+    public function features(Request $request): Response
+    {
+        return $this->render('pages/features.html.twig');
+    }
 }

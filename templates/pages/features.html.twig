@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% trans %}Issues{% endtrans %}{% endblock %}
+
+{% block body %}
+
+    <p>&nbsp;</p>
+    <h1>Notas</h1>
+    <ul>
+        <li>
+            Hay creada un DataFixture para crear los usuarios. Se crean:
+            <ul>
+                <li>admin@avaibook.com -> 1234 -> con rol admin (puede ver todas incidencias) </li>
+                <li>user1@avaibook.com -> 1234 -> con rol user (solo puede ver sus incidencias) </li>
+                <li>user2@avaibook.com -> 1234 -> con rol user (solo puede ver sus incidencias) </li>
+            </ul>
+            Las DataFixtures se ejecutan con php bin/console doctrine:fixtures:load y hay que tener en cuenta que borran el contenido de la base de datos.
+        </li>
+        <li>Hay creada una Extensión de Twig para avisar de las indicencias que llevan más de 5 días sin ser resueltas</li>
+        <li>En el formulario de usuario, hay creado un evento de formulario para pedir introducir la contraseña solo en la creación del usuario.</li>
+        <li>En el Subscriber Issue hay un ejemplo de envío de mail, pero esta comentado.</li>
+        <li>La forma en la que está hecho el borrar en todas las entidades no debería usarse nunca en producción, ya que esta por get y sin seguridad.</li>
+        <li>Hay creado un comando (app:close-issues) que marca todas las incidencias como resultas.</li>
+    </ul>
+{% endblock %}
