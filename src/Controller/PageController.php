@@ -15,6 +15,11 @@ class PageController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        return $this->render('page/index.html.twig');
+        $user = $this->getUser();
+        if ($user) {
+            return $this->redirectToRoute('issue_index');
+        }
+
+        return $this->redirectToRoute('app_login');
     }
 }
