@@ -25,7 +25,7 @@ class TagManager
         return $tag;
     }
 
-    public function create($tag): Tag
+    public function create(Tag $tag): Tag
     {
         $event = new TagEvent($tag);
         $this->dispatcher->dispatch(TagEvent::PRE_SAVED, $event);
@@ -39,7 +39,7 @@ class TagManager
         return $tag;
     }
 
-    public function update($tag): Tag
+    public function update(Tag $tag): Tag
     {
         $event = new TagEvent($tag);
         $this->dispatcher->dispatch(TagEvent::PRE_UPDATE, $event);
@@ -52,7 +52,7 @@ class TagManager
         return $tag;
     }
 
-    public function delete($tag): void
+    public function delete(Tag $tag): void
     {
         $event = new TagEvent($tag);
         $this->dispatcher->dispatch(TagEvent::PRE_DELETE, $event);

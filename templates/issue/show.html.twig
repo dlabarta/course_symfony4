@@ -37,7 +37,17 @@
             </tr>
             <tr>
                 <th>{% trans %}Solved{% endtrans %}</th>
-                <td>{{ issue.solved ? 'Sí' : 'No' }}</td>
+                <td>
+                    {% if issue.solved %}
+                        <span style="color: Green;">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </span>
+                    {% else %}
+                        <span style="color: Red;">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>{% trans %}Solved at{% endtrans %}</th>

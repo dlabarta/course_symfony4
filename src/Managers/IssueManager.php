@@ -3,6 +3,7 @@
 namespace App\Managers;
 
 use App\Entity\Issue;
+use App\Entity\User;
 use App\Event\IssueEvent;
 use App\Service\CodeGenerator;
 use App\Service\FileUploader;
@@ -39,7 +40,7 @@ class IssueManager
         return $issue;
     }
 
-    public function create($issue, $user): Issue
+    public function create(Issue $issue, User $user): Issue
     {
         $issue->setUser($user);
         $issue->setCreatedAt(new \DateTime());
@@ -58,7 +59,7 @@ class IssueManager
         return $issue;
     }
 
-    public function update($issue): Issue
+    public function update(Issue $issue): Issue
     {
         $this->setAttachment($issue);
 
@@ -73,7 +74,7 @@ class IssueManager
         return $issue;
     }
 
-    public function delete($issue): void
+    public function delete(Issue $issue): void
     {
         $event = new IssueEvent($issue);
         $this->dispatcher->dispatch(IssueEvent::PRE_DELETE, $event);
@@ -82,7 +83,7 @@ class IssueManager
         $this->em->flush();
     }
 
-    protected function setAttachment($issue)
+    protected function setAttachment(Issue $issue)
     {
         $file = $issue->getAttachment();
         if ($file) {
@@ -96,7 +97,7 @@ class IssueManager
         }
     }
 
-    public function setOldVersion($issue)
+    public function setOldVersion(Issue $issue)
     {
         $this->oldVersion = clone $issue;
     }

@@ -25,7 +25,7 @@ class CategoryManager
         return $category;
     }
 
-    public function create($category): Category
+    public function create(Category $category): Category
     {
         $event = new CategoryEvent($category);
         $this->dispatcher->dispatch(CategoryEvent::PRE_SAVED, $event);
@@ -39,7 +39,7 @@ class CategoryManager
         return $category;
     }
 
-    public function update($category): Category
+    public function update(Category $category): Category
     {
         $event = new CategoryEvent($category);
         $this->dispatcher->dispatch(CategoryEvent::PRE_UPDATE, $event);
@@ -52,7 +52,7 @@ class CategoryManager
         return $category;
     }
 
-    public function delete($category): void
+    public function delete(Category $category): void
     {
         $event = new CategoryEvent($category);
         $this->dispatcher->dispatch(CategoryEvent::PRE_DELETE, $event);

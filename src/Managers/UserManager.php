@@ -6,19 +6,23 @@ use App\Entity\User;
 use App\Event\UserEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserManager
 {
     protected $em;
     protected $dispatcher;
+    protected $encoder;
 
     public function __construct(
         EntityManagerInterface $em,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        UserPasswordEncoderInterface $encoder
     )
     {
         $this->em = $em;
         $this->dispatcher = $dispatcher;
+        $this->encoder = $encoder;
     }
 
     public function newObject(): User
@@ -28,10 +32,13 @@ class UserManager
         return $user;
     }
 
-    public function create($user): User
+    public function create(User $user): User
     {
         $event = new UserEvent($user);
         $this->dispatcher->dispatch(UserEvent::PRE_SAVED, $event);
+
+        $password = $this->encoder->encodePassword($user, $user->getPassword());
+        $user->setPassword($password);
 
         $this->em->persist($user);
         $this->em->flush();
@@ -42,7 +49,7 @@ class UserManager
         return $user;
     }
 
-    public function update($user): User
+    public function update(User $user): User
     {
         $event = new UserEvent($user);
         $this->dispatcher->dispatch(UserEvent::PRE_UPDATE, $event);
@@ -55,7 +62,7 @@ class UserManager
         return $user;
     }
 
-    public function delete($user): void
+    public function delete(User $user): void
     {
         $event = new UserEvent($user);
         $this->dispatcher->dispatch(UserEvent::PRE_DELETE, $event);

@@ -51,7 +51,9 @@ class CategoryController extends AbstractController
     /**
      * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Category $category, CategoryManager $categoryManager): Response
+ /**
+     * @Route("/", name="issue_index", methods={"GET", "POST"})
+     */    public function edit(Request $request, Category $category, CategoryManager $categoryManager): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
