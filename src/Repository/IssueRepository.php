@@ -25,7 +25,7 @@ class IssueRepository extends ServiceEntityRepository
     public function findByCategoryAndTitle($user, $category, $title)
     {
         $qb = $this->createQueryBuilder('issue')
-            ->orderBy('issue.id', 'ASC')
+            ->orderBy('issue.createdAt', 'DESC')
         ;
         if (!is_null($user)){
             $qb->where('issue.user = :user')
