@@ -9,6 +9,7 @@ use App\Managers\IssueManager;
 use App\Repository\IssueRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,7 +51,7 @@ class IssueController extends AbstractController
             5
         );
 
-        return $this->render('issue/index.html.twig', [
+        return $this->render('issue/list.html.twig', [
             'formSearch' => $formSearch->createView(),
             'issues' => $paginator,
         ]);
@@ -93,18 +94,6 @@ class IssueController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="issue_show", methods={"GET"})
-     */
-    public function show(Issue $issue): Response
-    {
-        $this->denyAccessUnlessGranted('view', $issue);
-
-        return $this->render('issue/show.html.twig', [
-            'issue' => $issue,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="issue_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Issue $issue, IssueManager $issueManager): Response
@@ -139,6 +128,38 @@ class IssueController extends AbstractController
         return $this->render('issue/form.html.twig', [
             'issue' => $issue,
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/solved.json", name="issue_set_solved", methods={"POST"})
+     */
+    public function solved(Request $request, IssueManager $issueManager): Response
+    {
+        $issueId = $request->get('id');
+        $issue = $this->getDoctrine()->getRepository(Issue::class)->find($issueId);
+
+        $this->denyAccessUnlessGranted('edit', $issue);
+
+        $issueManager->setSolved($issue);
+
+        return new JsonResponse(
+            $this->renderView(
+                'issue/line.html.twig',
+                array('issue' => $issue)
+            )
+        );
+    }
+
+    /**
+     * @Route("/{id}/show", name="issue_show", methods={"GET"})
+     */
+    public function show(Issue $issue): Response
+    {
+        $this->denyAccessUnlessGranted('view', $issue);
+
+        return $this->render('issue/show.html.twig', [
+            'issue' => $issue,
         ]);
     }
 

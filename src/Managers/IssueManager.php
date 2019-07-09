@@ -74,6 +74,16 @@ class IssueManager
         return $issue;
     }
 
+    public function setSolved(Issue $issue): Issue
+    {
+        $issue->setSolved(true);
+        $issue->setSolvedAt(new \DateTime());
+
+        $this->em->flush();
+
+        return $issue;
+    }
+
     public function delete(Issue $issue): void
     {
         $event = new IssueEvent($issue);

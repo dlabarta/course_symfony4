@@ -1,0 +1,34 @@
+<tr class="ajax-row">
+    <td>
+        {% if issue_has_priority(issue) %}
+            <span style="color: Red;" title="Más de 5 días sin ser resuelta.">
+                <i class="fas fa-exclamation-triangle"></i>
+            </span>
+        {% endif %}
+        {{ issue.title }}
+    </td>
+    <td>{{ issue.email }}</td>
+    <td>
+        {% if issue.solved %}
+            <span style="color: Green;">
+                <i class="fa fa-check" aria-hidden="true"></i>
+            </span>
+        {% else %}
+            <a href="{{ url('issue_set_solved') }}" data-id="{{ issue.id }}" title="Marcar como resuelta" class="btn-solved" style="color: Red;">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </a>
+        {% endif %}
+    </td>
+    <td>{{ (issue.createdAt is not null ? issue.createdAt|date('d/m/Y H:i') : '') }}</td>
+    <td>
+        <a href="{{ path('issue_show', {'id': issue.id}) }}" class="btn btn-secondary btn-sm">
+            {% trans %}show{% endtrans %}
+        </a>
+        <a href="{{ path('issue_edit', {'id': issue.id}) }}" class="btn btn-secondary btn-sm">
+            {% trans %}edit{% endtrans %}
+        </a>
+        <a href="{{ path('issue_delete', {'id': issue.id}) }}"class="btn btn-danger btn-sm">
+            {% trans %}delete{% endtrans %}
+        </a>
+    </td>
+</tr>

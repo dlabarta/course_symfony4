@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% form_theme formSearch 'bootstrap_4_horizontal_layout.html.twig' %}
+
+{% block title %}{% trans %}Issues{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}Issues{% endtrans %}</h1>
+
+    {{ form(formSearch) }}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans %}Title{% endtrans %}</th>
+                <th>{% trans %}Client email{% endtrans %}</th>
+                <th>{% trans %}Solved{% endtrans %}</th>
+                <th>{% trans %}Created at{% endtrans %}</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for issue in issues %}
+            {% include 'issue/line.html.twig' %}
+        {% else %}
+            <tr>
+                <td colspan="5">{% trans %}No issues found{% endtrans %}.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(issues) }}
+    </div>
+
+    <a href="{{ path('issue_new') }}"class="btn btn-primary">{% trans %}Create new{% endtrans %}</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).on("click", ".btn-solved", function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var url = $this.attr('href');
+            var id = $this.data('id');
+            var $originalButton = $this;
+            var closeModal = true;
+            var params = 'id='+id;
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: params,
+                async: false,
+                success: function(data){
+                    var $newRow = $(data);
+                    var row = $originalButton.closest('.ajax-row');
+                    row.empty();
+                    row.append($newRow.html());
+                },
+                error: function(data) {
+                   alert($(data));
+                }
+            });
+        });
+    </script>
+{% endblock %}

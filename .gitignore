@@ -4,7 +4,7 @@
 /.env.local.php
 /.env.*.local
 /public/bundles/
-!/public/uploads/attachments/
+!/public/uploads/attachments
 /public/uploads/attachments/*
 /var/
 /vendor/
