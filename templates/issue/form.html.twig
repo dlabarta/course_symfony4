@@ -1,7 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends ajax is defined and ajax ? "empty.html.twig" : "base.html.twig" %}
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block title %}{% trans %}New issue{% endtrans %}{% endblock %}
+{% block title %}
+    {% if ajax is not defined or not ajax %}
+        {% trans %}New issue{% endtrans %}
+    {% endif %}
+{% endblock %}
 
 {% block body %}
     <h1>{% trans %}Create new issue{% endtrans %}</h1>
@@ -55,13 +59,17 @@
             {{ form_widget(form.attachment) }}
         </div>
     </div>
-    <div class="form-group row">
-        <div class="field col-md-12">
 
-            <button class="btn btn-success">{% trans %}Save{% endtrans %}</button>
-            <a href="{{ path('issue_index') }}" class="btn btn-light">{% trans %}Back to list{% endtrans %}</a>
+
+    {% if ajax is not defined or not ajax %}
+        <div class="form-group row">
+            <div class="field col-md-12">
+
+                <button class="btn btn-success">{% trans %}Save{% endtrans %}</button>
+                <a href="{{ path('issue_index') }}" class="btn btn-light">{% trans %}Back to list{% endtrans %}</a>
+            </div>
         </div>
-    </div>
+    {% endif %}
 
     {{ form_end(form) }}
 {% endblock %}

@@ -1,4 +1,4 @@
-<tr class="ajax-row">
+
     <td>
         {% if issue_has_priority(issue) %}
             <span style="color: Red;" title="Más de 5 días sin ser resuelta.">
@@ -24,11 +24,16 @@
         <a href="{{ path('issue_show', {'id': issue.id}) }}" class="btn btn-secondary btn-sm">
             {% trans %}show{% endtrans %}
         </a>
-        <a href="{{ path('issue_edit', {'id': issue.id}) }}" class="btn btn-secondary btn-sm">
+        <a href="{{ path('issue_edit', {'id': issue.id}) }}"
+           data-modal-title="Editar indidencia"
+           data-modal-form="issue"
+           data-ajax-target="#issueTable tbody"
+           data-content-replace="#course-issue-tbody"
+           class="btn btn-secondary btn-sm btn-edit">
             {% trans %}edit{% endtrans %}
         </a>
         <a href="{{ path('issue_delete', {'id': issue.id}) }}"class="btn btn-danger btn-sm">
             {% trans %}delete{% endtrans %}
         </a>
     </td>
-</tr>
+

@@ -8,7 +8,7 @@
 
     {{ form(formSearch) }}
 
-    <table class="table">
+    <table id="issueTable" class="table">
         <thead>
             <tr>
                 <th>{% trans %}Title{% endtrans %}</th>
@@ -19,13 +19,15 @@
             </tr>
         </thead>
         <tbody>
-        {% for issue in issues %}
-            {% include 'issue/line.html.twig' %}
-        {% else %}
-            <tr>
-                <td colspan="5">{% trans %}No issues found{% endtrans %}.</td>
-            </tr>
-        {% endfor %}
+            {% for issue in issues %}
+                <tr class="ajax-row">
+                    {% include 'issue/line.html.twig' %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">{% trans %}No issues found{% endtrans %}.</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
     <div class="navigation">
@@ -61,5 +63,84 @@
                 }
             });
         });
+
+
+        $(document).on("click", ".btn-edit", function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var url = $this.attr('href');
+            var formName = $this.data('modalForm');
+            var dialogTitle = $this.data('modalTitle');
+            var closeModal = false;
+
+            $.ajax({
+                type: 'get',
+                url: url,
+                cache: false,
+                success: function (data) {
+                    var myDialog = bootbox.dialog({
+                        title: dialogTitle,
+                        message: '<div class="ajax-row">'+data+'</div>',
+                        closeButton: true,
+                        buttons: {
+                            success: {
+                                label: "Guardar",
+                                className: "btn-success",
+                                callback: function () {
+                                    var $form = $('form[name='+formName+']');
+                                    if ( !$form.hasClass('modal-form-processed')) {
+                                        $form.on( "submit", function(event) {
+                                            event.preventDefault();
+                                            $(this).addClass('modal-form-processed');
+                                            var div = $(this).closest('.ajax-row');
+                                            var request_method = $(this).attr("method");
+                                            var form_data = $(this).serialize();
+                                            closeModal = true;
+                                            $.ajax({
+                                                url: url,
+                                                type: request_method,
+                                                data: form_data,
+                                                success: function (data) {
+                                                    if ($this.data('ajaxTarget') !== undefined ) {
+                                                        if (data.content) {
+                                                            var $editRow = $(data.content);
+                                                        } else {
+                                                            var $editRow = $(data);
+                                                        }
+                                                        var tr = $this.closest('.ajax-row');
+                                                        tr.empty();
+                                                        tr.append($editRow);
+                                                        myDialog.modal('hide');
+                                                    } else {
+                                                        location.reload();
+                                                    }
+                                                },
+                                                error: function(data) {
+                                                    div.empty();
+                                                    div.html(data.responseText);
+                                                }
+                                            });
+
+                                            return closeModal;
+                                        });
+                                    }
+                                    $form.submit();
+
+                                    return false;
+                                }
+                            },
+                            cancel: {
+                                label: "Cancelar",
+                                callback: function () {
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function(data) {
+                }
+            });
+        });
+
     </script>
 {% endblock %}

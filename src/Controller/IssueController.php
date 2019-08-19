@@ -105,30 +105,69 @@ class IssueController extends AbstractController
         $form = $this->createForm(IssueType::class, $issue);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $issue = $issueManager->update($issue);
+        if ($request->isXmlHttpRequest()) {
+            if ($form->isSubmitted()) {
+                if ($form->isValid()) {
+                    $issue = $issueManager->update($issue);
 
-                $this->addFlash(
-                    'success',
-                    'Se ha modificado correctamente'
-                );
-
-                return $this->redirectToRoute('issue_show', [
-                    'id' => $issue->getId(),
-                ]);
-            } else {
-                $this->addFlash(
-                    'notice',
-                    'Se han producido errores, revise el formulario.'
-                );
+                    return $this->render(
+                        'issue/line.html.twig',
+                        array(
+                            'issue' => $issue,
+                        )
+                    );
+                } else {
+                    return new Response(
+                        $this->get('twig')->render(
+                            'issue/form.html.twig',
+                            array(
+                                'issue' => $issue,
+                                'form' => $form->createView(),
+                                'ajax' => true,
+                            )
+                        )
+                        , 400
+                    );
+                }
             }
-        }
 
-        return $this->render('issue/form.html.twig', [
-            'issue' => $issue,
-            'form' => $form->createView(),
-        ]);
+            return new JsonResponse(
+                $this->get('twig')->render(
+                    'issue/form.html.twig',
+                    array(
+                        'issue' => $issue,
+                        'form' => $form->createView(),
+                        'ajax' => true,
+                    )
+                )
+            );
+        } else {
+            if ($form->isSubmitted()) {
+                if ($form->isValid()) {
+                    $issue = $issueManager->update($issue);
+
+                    $this->addFlash(
+                        'success',
+                        'Se ha modificado correctamente'
+                    );
+
+                    return $this->redirectToRoute('issue_show', [
+                        'id' => $issue->getId(),
+                    ]);
+                } else {
+                    $this->addFlash(
+                        'notice',
+                        'Se han producido errores, revise el formulario.'
+                    );
+                }
+            }
+
+            return $this->render('issue/form.html.twig', [
+                'issue' => $issue,
+                'form' => $form->createView(),
+                'ajax' => false,
+            ]);
+        }
     }
 
     /**

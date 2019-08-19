@@ -59,4 +59,9 @@ class IssueType extends AbstractType
             'data_class' => Issue::class,
         ]);
     }
+
+    public function getBlockPrefix()
+    {
+        return 'issue';
+    }
 }
