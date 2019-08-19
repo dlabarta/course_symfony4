@@ -2,13 +2,17 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block title %}
-    {% if ajax is not defined or not ajax %}
-        {% trans %}New issue{% endtrans %}
+    {% if ajax is not defined %}
+        {% if not ajax %}
+            {% trans %}New issue{% endtrans %}
+        {% endif %}
     {% endif %}
 {% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Create new issue{% endtrans %}</h1>
+    {% if ajax is not defined or not ajax %}
+        <h1>{% trans %}Create new issue{% endtrans %}</h1>
+    {% endif %}
 
     {{ form_start(form) }}
     <div class="form-group row">

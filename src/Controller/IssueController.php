@@ -65,32 +65,71 @@ class IssueController extends AbstractController
         $issue = $issueManager->newObject();
         $form = $this->createForm(IssueType::class, $issue);
         $form->handleRequest($request);
+        if ($request->isXmlHttpRequest()) {
+            if ($form->isSubmitted()) {
+                if ($form->isValid()) {
+                    $user = $this->getUser();
+                    $issue = $issueManager->create($issue, $user);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $user = $this->getUser();
-                $issue = $issueManager->create($issue, $user);
-
-                $this->addFlash(
-                    'success',
-                    'Se ha creado correctamente'
-                );
-
-                return $this->redirectToRoute('issue_show', [
-                    'id' => $issue->getId(),
-                ]);
-            } else {
-                $this->addFlash(
-                    'notice',
-                    'Se han producido errores, revise el formulario.'
-                );
+                    return $this->render(
+                        'issue/line.html.twig',
+                        array(
+                            'issue' => $issue,
+                        )
+                    );
+                } else {
+                    return new Response(
+                        $this->get('twig')->render(
+                            'issue/form.html.twig',
+                            array(
+                                'issue' => $issue,
+                                'form' => $form->createView(),
+                                'ajax' => true,
+                            )
+                        )
+                        , 400
+                    );
+                }
             }
-        }
 
-        return $this->render('issue/form.html.twig', [
-            'issue' => $issue,
-            'form' => $form->createView(),
-        ]);
+            return new JsonResponse(
+                $this->get('twig')->render(
+                    'issue/form.html.twig',
+                    array(
+                        'issue' => $issue,
+                        'form' => $form->createView(),
+                        'ajax' => true,
+                    )
+                )
+            );
+        } else {
+            if ($form->isSubmitted()) {
+                if ($form->isValid()) {
+                    $user = $this->getUser();
+                    $issue = $issueManager->create($issue, $user);
+
+                    $this->addFlash(
+                        'success',
+                        'Se ha creado correctamente'
+                    );
+
+                    return $this->redirectToRoute('issue_show', [
+                        'id' => $issue->getId(),
+                    ]);
+                } else {
+                    $this->addFlash(
+                        'notice',
+                        'Se han producido errores, revise el formulario.'
+                    );
+                }
+            }
+
+            return $this->render('issue/form.html.twig', [
+                'issue' => $issue,
+                'form' => $form->createView(),
+                'ajax' => false,
+            ]);
+        }
     }
 
     /**
@@ -182,10 +221,10 @@ class IssueController extends AbstractController
 
         $issueManager->setSolved($issue);
 
-        return new JsonResponse(
-            $this->renderView(
-                'issue/line.html.twig',
-                array('issue' => $issue)
+        return $this->render(
+            'issue/line.html.twig',
+            array(
+                'issue' => $issue,
             )
         );
     }
@@ -193,13 +232,29 @@ class IssueController extends AbstractController
     /**
      * @Route("/{id}/show", name="issue_show", methods={"GET"})
      */
-    public function show(Issue $issue): Response
+    public function show(Request $request, Issue $issue): Response
     {
         $this->denyAccessUnlessGranted('view', $issue);
 
-        return $this->render('issue/show.html.twig', [
-            'issue' => $issue,
-        ]);
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(
+                $this->get('twig')->render(
+                    'issue/show.html.twig',
+                    array(
+                        'issue' => $issue,
+                        'ajax' => true,
+                    )
+                )
+            );
+        } else {
+            return $this->render(
+                'issue/show.html.twig',
+                [
+                    'issue' => $issue,
+                    'ajax' => false,
+                ]
+            );
+        }
     }
 
     /**

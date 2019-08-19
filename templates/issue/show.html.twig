@@ -1,16 +1,22 @@
-{% extends 'base.html.twig' %}
+{% extends ajax is defined and ajax ? "empty.html.twig" : "base.html.twig" %}
 
-{% block title %}Issue{% endblock %}
+{% block title %}
+    {% if ajax is not defined or not ajax %}
+        Issue
+    {% endif %}
+{% endblock %}
 
 {% block body %}
-    <h1>
-        {% if issue_has_priority(issue) %}
-            <span style="color: Red;" title="Más de 5 días sin ser resuelta.">
-                <i class="fas fa-exclamation-triangle"></i>
-            </span>
-        {% endif %}
-        {% trans %}Issue{% endtrans %}
-    </h1>
+    {% if ajax is not defined or not ajax %}
+        <h1>
+            {% if issue_has_priority(issue) %}
+                <span style="color: Red;" title="Más de 5 días sin ser resuelta.">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </span>
+            {% endif %}
+            {% trans %}Issue{% endtrans %}
+        </h1>
+    {% endif %}
 
     <table class="table">
         <tbody>
@@ -78,12 +84,13 @@
             </tr>
         </tbody>
     </table>
+    {% if ajax is not defined or not ajax %}
+        <a href="{{ path('issue_index') }}" class="btn btn-light">{% trans %}Back to list{% endtrans %}</a>
 
-    <a href="{{ path('issue_index') }}" class="btn btn-light">{% trans %}Back to list{% endtrans %}</a>
+        <a href="{{ path('issue_edit', {'id': issue.id}) }}" class="btn btn-primary">{% trans %}Edit{% endtrans %}</a>
 
-    <a href="{{ path('issue_edit', {'id': issue.id}) }}" class="btn btn-primary">{% trans %}Edit{% endtrans %}</a>
-
-    <a href="{{ url('issue_delete', {'id': issue.id }) }}" onclick="return confirm('¿Estás seguro que deseas borrarlo?')" class="btn btn-danger">
-        <i class="fa fa-close"></i> {% trans %}Delete{% endtrans %}
-    </a>
+        <a href="{{ url('issue_delete', {'id': issue.id }) }}" onclick="return confirm('¿Estás seguro que deseas borrarlo?')" class="btn btn-danger">
+            <i class="fa fa-close"></i> {% trans %}Delete{% endtrans %}
+        </a>
+    {% endif %}
 {% endblock %}

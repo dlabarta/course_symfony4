@@ -20,11 +20,9 @@
         </thead>
         <tbody>
             {% for issue in issues %}
-                <tr class="ajax-row">
-                    {% include 'issue/line.html.twig' %}
-                </tr>
+                {% include 'issue/line.html.twig' %}
             {% else %}
-                <tr>
+                <tr class="no-records-found">
                     <td colspan="5">{% trans %}No issues found{% endtrans %}.</td>
                 </tr>
             {% endfor %}
@@ -34,7 +32,13 @@
         {{ knp_pagination_render(issues) }}
     </div>
 
-    <a href="{{ path('issue_new') }}"class="btn btn-primary">{% trans %}Create new{% endtrans %}</a>
+    <a href="{{ path('issue_new') }}"
+       data-modal-title="Añadir incidencia"
+       data-modal-form="issue"
+       data-ajax-target="#issueTable tbody"
+       class="btn btn-primary btn-new"
+    >{% trans %}Create new{% endtrans %}
+    </a>
 {% endblock %}
 
 {% block javascripts %}
@@ -53,10 +57,14 @@
                 data: params,
                 async: false,
                 success: function(data){
-                    var $newRow = $(data);
-                    var row = $originalButton.closest('.ajax-row');
-                    row.empty();
-                    row.append($newRow.html());
+                    if (data.content) {
+                        var $editRow = $(data.content);
+                    } else {
+                        var $editRow = $(data);
+                    }
+                    var tr = $this.closest('.ajax-row');
+                    tr.empty();
+                    tr.append($editRow.html());
                 },
                 error: function(data) {
                    alert($(data));
@@ -65,7 +73,7 @@
         });
 
 
-        $(document).on("click", ".btn-edit", function(e) {
+        $(document).on("click", ".btn-new, .btn-edit", function(e) {
             e.preventDefault();
             var $this = $(this);
             var url = $this.attr('href');
@@ -81,7 +89,7 @@
                     var myDialog = bootbox.dialog({
                         title: dialogTitle,
                         message: '<div class="ajax-row">'+data+'</div>',
-                        closeButton: true,
+                        closeButton: false,
                         buttons: {
                             success: {
                                 label: "Guardar",
@@ -101,18 +109,31 @@
                                                 type: request_method,
                                                 data: form_data,
                                                 success: function (data) {
-                                                    if ($this.data('ajaxTarget') !== undefined ) {
+                                                    if ($this.hasClass('btn-new')) {
                                                         if (data.content) {
-                                                            var $editRow = $(data.content);
+                                                            var $newRow = $(data.content);
                                                         } else {
-                                                            var $editRow = $(data);
+                                                            var $newRow = $(data);
                                                         }
-                                                        var tr = $this.closest('.ajax-row');
-                                                        tr.empty();
-                                                        tr.append($editRow);
+                                                        target = $($this.attr('data-ajax-target'));
+                                                        target.prepend($newRow);
+                                                        target = $($this.attr('data-ajax-target')+ ' .no-records-found');
+                                                        target.remove()
                                                         myDialog.modal('hide');
-                                                    } else {
-                                                        location.reload();
+                                                    } else if ($this.hasClass('btn-edit')) {
+                                                        if ($this.data('ajaxTarget') !== undefined) {
+                                                            if (data.content) {
+                                                                var $editRow = $(data.content);
+                                                            } else {
+                                                                var $editRow = $(data);
+                                                            }
+                                                            var tr = $this.closest('.ajax-row');
+                                                            tr.empty();
+                                                            tr.append($editRow.html());
+                                                            myDialog.modal('hide');
+                                                        } else {
+                                                            location.reload();
+                                                        }
                                                     }
                                                 },
                                                 error: function(data) {
@@ -141,6 +162,35 @@
                 }
             });
         });
+
+
+        $(document).on("click", ".btn-show", function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var url = $this.attr('href');
+            var dialogTitle = $this.data('modalTitle');
+
+            $.ajax({
+                type: 'get',
+                url: url,
+                cache: false,
+                success: function (data) {
+                    var myDialog = bootbox.dialog({
+                        title: dialogTitle,
+                        message: data,
+                        closeButton: false,
+                        buttons: {
+                            cancel: {
+                                label: "Cerrar",
+                                callback: function () {}
+                            }
+                        }
+                    });
+                },
+                error: function(data) {}
+            });
+        });
+
 
     </script>
 {% endblock %}
